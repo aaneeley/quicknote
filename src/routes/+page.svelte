@@ -32,7 +32,7 @@
 </script>
 
 <form
-	class="flex w-full flex-col items-end space-y-4 pt-2 lg:flex-row lg:items-start lg:space-x-4"
+	class="flex w-full flex-col items-start space-y-4 pt-2 lg:flex-row lg:space-x-4"
 	method="POST"
 	use:enhance={() => {
 		return async ({ result }) => {
@@ -53,19 +53,21 @@
 		</div>
 		{#if !markdownView}
 			<textarea
-				class="textarea min-h-50 w-full resize-none overflow-hidden"
+				class="textarea min-h-50 w-full resize-none overflow-x-scroll overflow-y-hidden text-nowrap"
 				name="content"
 				placeholder="Write anything!"
 				bind:value={content}
 				use:autoResize
 			></textarea>
 		{:else}
-			<pre>{content}</pre>
+			<div class="textarea bg-base-200 min-h-50 w-full resize-none overflow-hidden">
+				{content}
+			</div>
 		{/if}
 	</div>
 	<div class="flex flex-col space-y-2">
 		<h2 class="w-full">Note Settings</h2>
-		<fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+		<fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs min-w-86 border p-4">
 			<legend class="fieldset-legend">Encryption</legend>
 
 			<label class="toggle">

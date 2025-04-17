@@ -1,3 +1,8 @@
 @import 'tailwindcss';
-@plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+@plugin "daisyui";
+
+h2 {
+    font-size: 13pt;
+    font-weight: bold;
+}

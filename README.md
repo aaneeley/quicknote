@@ -1,3 +1,3 @@
 # Quicknote
 
-A pastebin-like demo project to demonstrate full-stack competency
+A cryptographically secure pastebin-like app to demonstrate full-stack competency

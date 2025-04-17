@@ -2,39 +2,65 @@
 	import type { ActionData, PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
+	let decryptedContent: string = $state('');
+
+	if (!data.encrypted) {
+		decryptedContent = data.content;
+	}
 
 	import { applyAction, enhance } from '$app/forms';
 	import { page } from '$app/state';
 	import { LockClosed, LockOpen, Warning } from '$lib/icons';
+	import { decryptAesGcm } from '$lib/utils';
 
+	let password = $state('');
 	let isLoading = $state(false);
+	let error = $state('');
 
 	const MAX_NOTE_TITLE_LEN = 50;
 
-	let title = $derived(data.content.split('\n')[0].substring(0, MAX_NOTE_TITLE_LEN) || 'New Note');
-	function autoResize(textarea: HTMLTextAreaElement) {
-		const resize = () => {
-			textarea.style.height = 'auto';
-			textarea.style.height = textarea.scrollHeight + 'px';
-		};
+	let title = $derived(
+		decryptedContent?.split('\n')[0].substring(0, MAX_NOTE_TITLE_LEN) || 'Encrypted Note'
+	);
 
-		textarea.addEventListener('input', resize);
-		resize(); // initial sizing
-
-		return {
-			destroy() {
-				textarea.removeEventListener('input', resize);
-			}
-		};
-	}
+	const decrypt = () => {
+		isLoading = true;
+		decryptAesGcm(data.content, data.iv!, data.salt!, password)
+			.then((decrypted) => {
+				decryptedContent = decrypted;
+			})
+			.catch((e) => (error = e))
+			.finally(() => (isLoading = false));
+	};
 </script>
 
 <div class="flex w-full flex-col items-start space-y-4 pt-2 lg:flex-row lg:space-x-4">
 	<div class="w-full space-y-2">
 		<h2 class="w-full">{title}</h2>
-		<div class="textarea bg-base-200 min-h-50 w-full resize-none overflow-hidden">
-			{data.content}
-		</div>
+		{#if decryptedContent}
+			<div class="textarea bg-base-200 min-h-50 w-full resize-none overflow-hidden">
+				{decryptedContent}
+			</div>
+		{:else}
+			<div
+				class="fieldset bg-base-200 border-base-300 rounded-box flex min-w-86 flex-col items-center space-y-2 border py-12"
+			>
+				<span class="text-sm">This note requires a password to access</span>
+				<input
+					bind:value={password}
+					name="password"
+					type="password"
+					class="input"
+					placeholder="Password"
+				/>
+				{#if error}
+					<span class="text-error text-sm">{error}</span>
+				{/if}
+				<button class="btn btn-soft btn-success w-30" onclick={decrypt}
+					>{isLoading ? 'loading...' : 'Unlock Note'}</button
+				>
+			</div>
+		{/if}
 	</div>
 	<div class="flex flex-col space-y-2">
 		<h2 class="w-full">Note Info</h2>
@@ -57,12 +83,16 @@
 								></path></g
 							></svg
 						>
-						<span>{page.url}</span>
+						<span>{page.url.toString().replaceAll('https://', '').replaceAll('http://', '')}</span>
 					</span>
 				</div>
 				<button class="btn btn-primary join-item">Copy</button>
 			</div>
-			<p class="fieldset-label">Anyone can access this note through the link.</p>
+			<p class="fieldset-label">
+				{data.encrypted
+					? 'Only people with your password can see this note.'
+					: 'Anyone can access this note through the link.'}
+			</p>
 		</fieldset>
 	</div>
 </div>

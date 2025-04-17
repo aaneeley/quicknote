@@ -71,7 +71,7 @@
 			<legend class="fieldset-legend">Encryption</legend>
 
 			<label class="toggle">
-				<input bind:checked={encrypted} type="checkbox" />
+				<input name="encrypted" bind:checked={encrypted} type="checkbox" />
 				<LockOpen stroke="3" />
 				<LockClosed stroke="3" />
 			</label>
@@ -88,7 +88,13 @@
 						</span>
 					</div>
 				</label>
-				<input type="password" class="input" disabled={!encrypted} placeholder="Password" />
+				<input
+					name="password"
+					type="password"
+					class="input"
+					disabled={!encrypted}
+					placeholder="Password"
+				/>
 			{/if}
 			<p class="fieldset-label">
 				Encrypts your note in the database making it impossible for anyone to see your note. Even
@@ -97,6 +103,8 @@
 		</fieldset>
 		{#if form?.missing}
 			<span class="text-error text-sm">Note cannot be empty</span>
+		{:else if form?.password_missing}
+			<span class="text-error text-sm">Password cannot be empty</span>
 		{:else if form?.invalid}
 			<span class="text-error text-sm">Something is wrong with your note... Please try again.</span>
 		{/if}

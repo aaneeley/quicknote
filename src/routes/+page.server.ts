@@ -2,6 +2,7 @@ import { fail, redirect } from "@sveltejs/kit";
 import type { Actions } from "./$types";
 import { db } from "$lib/server/db";
 import { notes } from "$lib/server/db/schema";
+import { encryptAesGcm } from "$lib/utils";
 
 type NewNote = typeof notes.$inferInsert;
 
@@ -9,14 +10,34 @@ export const actions = {
     default: async ({ request }) => {
         const data = await request.formData();
         const content = data.get("content")
+        const encrypted = data.get("encrypted")
+        const password = data.get("password")
+
+        if (encrypted && (!password || password === "")) {
+            return fail(400, { password, password_missing: true })
+        }
         if (!content || content === "") {
             return fail(400, { content, missing: true })
         } else if (content.toString().length > 500_000) { // 0.5MB max note size
             return fail(400, { content, invalid: true })
         }
-        const newNote: NewNote = {
-            content: content.toString()
+
+        var newNote: NewNote;
+        // Do encryption
+        if (encrypted) {
+            const { ciphertextB64, ivB64, saltB64 } = await encryptAesGcm(content.toString(), password!.toString())
+            newNote = {
+                content: ciphertextB64,
+                iv: ivB64,
+                salt: saltB64,
+                encrypted: true
+            }
+        } else {
+            newNote = {
+                content: content.toString()
+            }
         }
+
         const newNotes = await db.insert(notes).values(newNote).returning({ id: notes.id })
         const pageSlug = (newNotes[0].id + 10000).toString(36)
 

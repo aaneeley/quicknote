@@ -9,7 +9,9 @@ export const load: PageServerLoad = async ({ params }) => {
     const result = await db.select({
         content: notes.content,
         encrypted: notes.encrypted,
-        markdown: notes.markdown
+        markdown: notes.markdown,
+        salt: notes.salt,
+        iv: notes.iv
     }).from(notes).where(eq(notes.id, noteIndex))
 
     if (result.length > 0) {

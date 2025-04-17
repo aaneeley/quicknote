@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { PageProps } from './$types';
+	import type { ActionData, PageData } from './$types';
 
-	let { data }: PageProps = $props();
+	let { data, form }: { data: PageData; form: ActionData } = $props();
 </script>
 
 {JSON.stringify(data)}

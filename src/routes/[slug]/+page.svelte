@@ -12,9 +12,11 @@
 	import { page } from '$app/state';
 	import { LockClosed, LockOpen, Warning } from '$lib/icons';
 	import { decryptAesGcm } from '$lib/utils';
+	import { goto } from '$app/navigation';
 
 	let password = $state('');
 	let isLoading = $state(false);
+	let copied = $state(false);
 	let error = $state('');
 
 	const MAX_NOTE_TITLE_LEN = 50;
@@ -31,6 +33,16 @@
 			})
 			.catch((e) => (error = e))
 			.finally(() => (isLoading = false));
+	};
+
+	const copyLink = () => {
+		try {
+			navigator.clipboard.writeText(page.url.toString()).then();
+			copied = true;
+			setTimeout(() => (copied = false), 2000);
+		} catch (err) {
+			alert('Error while copying to clipboard');
+		}
 	};
 </script>
 
@@ -86,7 +98,9 @@
 						<span>{page.url.toString().replaceAll('https://', '').replaceAll('http://', '')}</span>
 					</span>
 				</div>
-				<button class="btn btn-primary join-item">Copy</button>
+				<button class="btn btn-primary join-item" onclick={copyLink}
+					>{copied ? 'Copied!' : 'Copy'}</button
+				>
 			</div>
 			<p class="fieldset-label">
 				{data.encrypted
@@ -94,5 +108,8 @@
 					: 'Anyone can access this note through the link.'}
 			</p>
 		</fieldset>
+		<button class="btn btn-primary btn-outline" onclick={() => goto('/')}
+			><b>+</b>&nbsp;New Note</button
+		>
 	</div>
 </div>

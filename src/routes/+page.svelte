@@ -108,7 +108,7 @@
 		{:else if form?.invalid}
 			<span class="text-error text-sm">Something is wrong with your note... Please try again.</span>
 		{/if}
-		<button class="btn btn-soft btn-success w-30" onclick={() => (isLoading = true)}
+		<button class="btn btn-outline btn-success" onclick={() => (isLoading = true)}
 			>{isLoading ? 'loading...' : 'Save Note'}</button
 		>
 	</div>

@@ -35,6 +35,7 @@
 	},
 	"dependencies": {
 		"@neondatabase/serverless": "^0.10.4",
+		"@rollup/rollup-darwin-x64": "^4.40.0",
 		"@types/node": "^22.14.1",
 		"daisyui": "^5.0.25",
 		"drizzle-orm": "^0.40.0",

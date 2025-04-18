@@ -67,7 +67,9 @@
 	</div>
 	<div class="flex flex-col space-y-2">
 		<h2 class="w-full">Note Settings</h2>
-		<fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs min-w-86 border p-4">
+		<fieldset
+			class="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4 sm:w-sm sm:min-w-86"
+		>
 			<legend class="fieldset-legend">Encryption</legend>
 
 			<label class="toggle">

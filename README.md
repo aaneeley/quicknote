@@ -4,7 +4,7 @@ A cryptographically secure pastebin-like app to demonstrate full-stack competenc
 
 ## Technologies Utilized
 
-The frontend and server functions are written with SvelteKit.
+The frontend and server functions are written with SvelteKit. The UI is reactive and mobile friendly.
 
 The notes are stored in a Postgres database using Drizzle ORM.
 

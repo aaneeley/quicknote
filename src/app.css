@@ -11,7 +11,7 @@ h1 {
 }
 
 h2 {
-    font-size: 13pt;
+    font-size: 14pt;
     font-weight: 600;
 }
 
@@ -19,6 +19,18 @@ h3 {
     font-weight: 700;
 }
 
+.ui {
+    font-family: "Lora";
+    font-weight: 500;
+}
+
 code {
     @apply px-2 py-1 rounded-sm bg-base-100;
+}
+
+@font-face {
+    font-family: 'Lora';
+    /*a name to be used later*/
+    src: url('/LoraVariable.ttf');
+    /*URL to font*/
 }

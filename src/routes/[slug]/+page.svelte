@@ -58,7 +58,7 @@
 <div class="flex w-full flex-col items-start space-y-4 pt-2 lg:flex-row lg:space-x-4">
 	<div class="w-full min-w-0 space-y-2 lg:w-auto lg:flex-1">
 		<div class="flex w-full flex-row items-center justify-between py-1">
-			<h2 class="mr-4 max-w-sm overflow-hidden text-nowrap overflow-ellipsis">{data.title}</h2>
+			<h2 class="ui mr-4 max-w-sm overflow-hidden text-nowrap overflow-ellipsis">{data.title}</h2>
 			<label class=" swap swap-rotate pr-2">
 				<input
 					bind:checked={rawMode}
@@ -99,7 +99,7 @@
 		{/if}
 	</div>
 	<div class="flex w-full flex-col space-y-2 sm:w-auto">
-		<h2 class="w-full">Note Info</h2>
+		<h2 class="ui w-full">Note Info</h2>
 		<fieldset
 			class="fieldset bg-base-200 border-base-300 rounded-box space-y w-full border p-4 sm:w-sm sm:min-w-86"
 		>

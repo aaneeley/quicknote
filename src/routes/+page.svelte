@@ -67,7 +67,7 @@
 				hidden={previewMode}
 			/>
 			{#if previewMode}
-				<h2 class="mr-4 max-w-sm overflow-hidden text-nowrap overflow-ellipsis">{title}</h2>
+				<h2 class="ui mr-4 max-w-sm overflow-hidden text-nowrap overflow-ellipsis">{title}</h2>
 			{/if}
 			<label class="swap swap-rotate pr-2">
 				<input
@@ -97,7 +97,7 @@
 		{/if}
 	</div>
 	<div class="flex flex-col space-y-2">
-		<h2 class="w-full">Note Settings</h2>
+		<h2 class="ui w-full">Note Settings</h2>
 		<fieldset
 			class="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4 sm:w-sm sm:min-w-86"
 		>

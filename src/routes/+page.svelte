@@ -6,6 +6,8 @@
 	import type { PageProps } from './$types';
 	import Edit from '$lib/icons/Edit.svelte';
 	import Eye from '$lib/icons/Eye.svelte';
+	import DOMPurify from 'isomorphic-dompurify';
+	import { marked } from 'marked';
 
 	let { form }: PageProps = $props();
 
@@ -16,7 +18,14 @@
 	let encrypted = $state(false);
 	let previewMode = $state(false);
 
-	let highlightedContent = $derived(hljs.highlight(content, { language: language }));
+	let formattedContent = $derived(
+		language == 'markdown'
+			? marked.parse(content, { async: false })
+			: hljs.highlight(content, { language: language }).value
+	);
+
+	// This is the ONLY content that is safe to @html render
+	let purifiedContent = $derived(DOMPurify.sanitize(formattedContent));
 
 	function autoResize(textarea: HTMLTextAreaElement) {
 		const resize = () => {
@@ -79,8 +88,8 @@
 			hidden={previewMode}
 		></textarea>
 		{#if previewMode}
-			<div class="textarea w-full resize-none overflow-x-scroll overflow-y-hidden">
-				<pre class="text-nowrap">{@html highlightedContent.value}</pre>
+			<div class="textarea bg-base-300 w-full resize-none overflow-x-scroll overflow-y-hidden">
+				<pre class="text-nowrap">{@html purifiedContent}</pre>
 			</div>
 		{/if}
 	</div>

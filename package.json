@@ -39,6 +39,8 @@
 		"@types/node": "^22.14.1",
 		"daisyui": "^5.0.25",
 		"drizzle-orm": "^0.40.0",
-		"highlight.js": "^11.11.1"
+		"highlight.js": "^11.11.1",
+		"isomorphic-dompurify": "^2.23.0",
+		"marked": "^15.0.8"
 	}
 }

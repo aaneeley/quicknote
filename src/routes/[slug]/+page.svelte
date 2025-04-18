@@ -4,7 +4,9 @@
 	import '$lib/themes/github-dark-dimmed.css';
 	import { decryptAesGcm } from '$lib/utils';
 	import hljs from 'highlight.js';
+	import DOMPurify from 'isomorphic-dompurify';
 	import type { PageProps } from './$types';
+	import { marked } from 'marked';
 
 	let { data }: PageProps = $props();
 
@@ -16,9 +18,14 @@
 
 	if (!data.encrypted) decryptedContent = data.content;
 
-	let highlightedContent = $derived(
-		hljs.highlight(decryptedContent, { language: data.language.toString() })
+	let formattedContent = $derived(
+		data.language.toString() == 'markdown'
+			? marked.parse(decryptedContent, { async: false })
+			: hljs.highlight(decryptedContent, { language: data.language.toString() }).value
 	);
+
+	// This is the ONLY content that is safe to @html render
+	let purifiedContent = $derived(DOMPurify.sanitize(formattedContent));
 
 	const decrypt = () => {
 		isLoading = true;
@@ -45,8 +52,8 @@
 	<div class="w-full min-w-0 space-y-2 lg:w-auto lg:flex-1">
 		<h2 class="max-w-sm overflow-hidden text-nowrap overflow-ellipsis">{data.title}</h2>
 		{#if decryptedContent}
-			<div class="textarea w-full resize-none overflow-x-scroll overflow-y-hidden">
-				<pre class="text-nowrap">{@html highlightedContent.value}</pre>
+			<div class="bg-base-300 textarea w-full resize-none overflow-x-scroll overflow-y-hidden">
+				<pre class="text-nowrap">{@html purifiedContent}</pre>
 			</div>
 		{:else}
 			<div

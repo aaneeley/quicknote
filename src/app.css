@@ -2,7 +2,20 @@
 @plugin '@tailwindcss/typography';
 @plugin "daisyui";
 
+h1 {
+    font-size: 18pt;
+    font-weight: bold;
+}
+
 h2 {
     font-size: 13pt;
-    font-weight: bold;
+    font-weight: 600;
+}
+
+h3 {
+    font-weight: 700;
+}
+
+code {
+    @apply px-2 py-1 rounded-sm bg-base-100;
 }

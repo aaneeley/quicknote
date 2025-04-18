@@ -81,7 +81,7 @@
 			</label>
 		</div>
 		<textarea
-			class="textarea w-full resize-none overflow-x-scroll overflow-y-hidden text-nowrap"
+			class="rounded-box textarea w-full resize-none overflow-x-scroll overflow-y-hidden text-nowrap"
 			name="content"
 			placeholder="Write anything!"
 			bind:value={content}
@@ -89,7 +89,9 @@
 			hidden={previewMode}
 		></textarea>
 		{#if previewMode}
-			<div class="textarea bg-base-300 w-full resize-none overflow-x-scroll overflow-y-hidden">
+			<div
+				class="textarea rounded-box bg-base-300 w-full resize-none overflow-x-scroll overflow-y-hidden"
+			>
 				<pre class="text-nowrap">{@html purifiedContent}</pre>
 			</div>
 		{/if}

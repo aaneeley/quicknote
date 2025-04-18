@@ -71,7 +71,9 @@
 			</label>
 		</div>
 		{#if decryptedContent}
-			<div class="bg-base-300 textarea w-full resize-none overflow-x-scroll overflow-y-hidden">
+			<div
+				class="rounded-box bg-base-300 textarea w-full resize-none overflow-x-scroll overflow-y-hidden"
+			>
 				<pre
 					class="text-nowrap">{#if rawMode}{decryptedContent}{:else}{@html purifiedContent}{/if}</pre>
 			</div>

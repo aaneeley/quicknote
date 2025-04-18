@@ -1,9 +1,8 @@
-import { fail, redirect } from "@sveltejs/kit";
-import type { Actions } from "./$types";
 import { db } from "$lib/server/db";
 import { notes } from "$lib/server/db/schema";
 import { encryptAesGcm } from "$lib/utils";
-
+import { fail, redirect } from "@sveltejs/kit";
+import type { Actions } from "./$types";
 type NewNote = typeof notes.$inferInsert;
 
 export const actions = {

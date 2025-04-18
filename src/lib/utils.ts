@@ -2,12 +2,11 @@ export async function decryptAesGcm(ciphertextB64: string, ivB64: string, saltB6
     const b64ToBytes = (b64: string) =>
         Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
 
-    // Decode inputs
+    // Decode Base64 inputs
     const ciphertext = b64ToBytes(ciphertextB64);
     const iv = b64ToBytes(ivB64);
     const salt = b64ToBytes(saltB64);
 
-    // Step 1: Derive key from password using PBKDF2
     const enc = new TextEncoder();
     const keyMaterial = await window.crypto.subtle.importKey(
         'raw',
@@ -17,6 +16,7 @@ export async function decryptAesGcm(ciphertextB64: string, ivB64: string, saltB6
         ['deriveKey']
     );
 
+    // Derive key
     const key = await window.crypto.subtle.deriveKey(
         {
             name: 'PBKDF2',
@@ -33,7 +33,7 @@ export async function decryptAesGcm(ciphertextB64: string, ivB64: string, saltB6
         ['decrypt']
     );
 
-    // Step 2: Decrypt
+    // Decrypt ciphertext
     try {
         const decrypted = await window.crypto.subtle.decrypt(
             {
@@ -44,7 +44,6 @@ export async function decryptAesGcm(ciphertextB64: string, ivB64: string, saltB6
             ciphertext
         );
 
-        // Decode decrypted ArrayBuffer to string
         const dec = new TextDecoder();
         return dec.decode(decrypted);
     } catch (err) {
@@ -67,11 +66,11 @@ export async function encryptAesGcm(plaintext: string, password: string): Promis
     const bytesToB64 = (bytes: Uint8Array): string =>
         btoa(String.fromCharCode(...bytes));
 
-    // Generate random salt and IV
-    const salt = getRandomBytes(16); // 128-bit salt
-    const iv = getRandomBytes(12);   // 96-bit IV (recommended for AES-GCM)
+    // Generate random salt
+    const salt = getRandomBytes(16);
+    // Generate random IV
+    const iv = getRandomBytes(12);
 
-    // Derive key from password using PBKDF2
     const enc = new TextEncoder();
     const keyMaterial = await crypto.subtle.importKey(
         'raw',
@@ -81,6 +80,7 @@ export async function encryptAesGcm(plaintext: string, password: string): Promis
         ['deriveKey']
     );
 
+    // Derive key
     const key = await crypto.subtle.deriveKey(
         {
             name: 'PBKDF2',
@@ -97,7 +97,7 @@ export async function encryptAesGcm(plaintext: string, password: string): Promis
         ['encrypt']
     );
 
-    // Encrypt the plaintext
+    // Encrypt plaintext
     const encrypted = await crypto.subtle.encrypt(
         {
             name: 'AES-GCM',
@@ -107,10 +107,8 @@ export async function encryptAesGcm(plaintext: string, password: string): Promis
         enc.encode(plaintext)
     );
 
-    // Convert ciphertext to Uint8Array
     const ciphertext = new Uint8Array(encrypted);
 
-    // Return all Base64-encoded parts
     return {
         ciphertextB64: bytesToB64(ciphertext),
         ivB64: bytesToB64(iv),

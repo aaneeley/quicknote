@@ -55,7 +55,7 @@
 			</div>
 		{:else}
 			<div
-				class="fieldset bg-base-200 border-base-300 rounded-box flex min-w-86 flex-col items-center space-y-2 border py-12"
+				class="fieldset bg-base-200 border-base-300 rounded-box flex flex-col items-center space-y-2 border px-4 py-12"
 			>
 				<span class="text-sm">This note requires a password to access</span>
 				<input
@@ -74,9 +74,11 @@
 			</div>
 		{/if}
 	</div>
-	<div class="flex flex-col space-y-2">
+	<div class="flex w-full flex-col space-y-2">
 		<h2 class="w-full">Note Info</h2>
-		<fieldset class="fieldset bg-base-200 border-base-300 rounded-box min-w-86 border p-4">
+		<fieldset
+			class="fieldset bg-base-200 border-base-300 rounded-box space-y w-full border p-4 sm:w-sm sm:min-w-86"
+		>
 			<legend class="fieldset-legend">Share</legend>
 
 			<label class="fieldset-label" for="password">Link</label>

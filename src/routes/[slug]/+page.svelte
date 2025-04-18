@@ -50,6 +50,11 @@
 	};
 </script>
 
+<svelte:head>
+	<meta charset="UTF-8" />
+	<title>{data.title} | Quicknote</title>
+</svelte:head>
+
 <div class="flex w-full flex-col items-start space-y-4 pt-2 lg:flex-row lg:space-x-4">
 	<div class="w-full min-w-0 space-y-2 lg:w-auto lg:flex-1">
 		<div class="flex w-full flex-col justify-between py-1 sm:flex-row sm:items-center">

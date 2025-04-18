@@ -1,6 +1,3 @@
-import * as languages from 'svelte-highlight/languages';
-import type { LanguageType } from 'svelte-highlight/languages';
-
 export async function decryptAesGcm(ciphertextB64: string, ivB64: string, saltB64: string, password: string): Promise<string> {
     const b64ToBytes = (b64: string) =>
         Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
@@ -119,18 +116,4 @@ export async function encryptAesGcm(plaintext: string, password: string): Promis
         ivB64: bytesToB64(iv),
         saltB64: bytesToB64(salt),
     };
-}
-
-
-const languageMap: Record<string, LanguageType<string>> = Object.entries(languages).reduce(
-    (acc, [key, value]) => ({
-        ...acc,
-        [value.name]: value
-    }),
-    {}
-);
-
-// Usage
-export function getLanguageByString(lang: string): LanguageType<string> {
-    return languageMap[lang] || languages.plaintext;
 }

@@ -49,7 +49,7 @@ export async function decryptAesGcm(ciphertextB64: string, ivB64: string, saltB6
         return dec.decode(decrypted);
     } catch (err) {
         console.error('Decryption failed:', err);
-        throw new Error('Failed to decrypt. Possibly wrong password or corrupted data.');
+        throw new Error('Failed to decrypt. Incorrect password.');
     }
 }
 

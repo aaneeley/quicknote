@@ -11,8 +11,11 @@
 	import { applyAction, enhance } from '$app/forms';
 	import { page } from '$app/state';
 	import { LockClosed, LockOpen, Warning } from '$lib/icons';
-	import { decryptAesGcm } from '$lib/utils';
+	import { decryptAesGcm, getLanguageByString } from '$lib/utils';
 	import { goto } from '$app/navigation';
+	import { LineNumbers, Highlight } from 'svelte-highlight';
+	import { type LanguageType } from 'svelte-highlight/languages';
+	import 'svelte-highlight/styles/github-dark.css';
 
 	let password = $state('');
 	let isLoading = $state(false);
@@ -50,9 +53,14 @@
 	<div class="w-full space-y-2">
 		<h2 class="w-full">{title}</h2>
 		{#if decryptedContent}
-			<div class="textarea bg-base-200 min-h-50 w-full resize-none overflow-hidden">
-				{decryptedContent}
-			</div>
+			<Highlight
+				class="rounded-field"
+				language={getLanguageByString(data.language)}
+				code={decryptedContent}
+				let:highlighted
+			>
+				<LineNumbers {highlighted} />
+			</Highlight>
 		{:else}
 			<div
 				class="fieldset bg-base-200 border-base-300 rounded-box flex flex-col items-center space-y-2 border px-4 py-12"

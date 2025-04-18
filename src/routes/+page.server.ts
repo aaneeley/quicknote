@@ -12,6 +12,7 @@ export const actions = {
         const content = data.get("content")
         const encrypted = data.get("encrypted")
         const password = data.get("password")
+        const language = data.get("language")
 
         if (encrypted && (!password || password === "")) {
             return fail(400, { password, password_missing: true })
@@ -30,11 +31,13 @@ export const actions = {
                 content: ciphertextB64,
                 iv: ivB64,
                 salt: saltB64,
-                encrypted: true
+                encrypted: true,
+                language: language?.toString()
             }
         } else {
             newNote = {
-                content: content.toString()
+                content: content.toString(),
+                language: language?.toString()
             }
         }
 

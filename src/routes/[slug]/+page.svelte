@@ -13,14 +13,17 @@
 	import { LockClosed, LockOpen, Warning } from '$lib/icons';
 	import { decryptAesGcm, getLanguageByString } from '$lib/utils';
 	import { goto } from '$app/navigation';
-	import { LineNumbers, Highlight } from 'svelte-highlight';
-	import { type LanguageType } from 'svelte-highlight/languages';
 	import 'svelte-highlight/styles/github-dark.css';
+	import hljs from 'highlight.js';
 
 	let password = $state('');
 	let isLoading = $state(false);
 	let copied = $state(false);
 	let error = $state('');
+
+	let highlightedContent = $derived(
+		hljs.highlight(decryptedContent, { language: data.language.toString() })
+	);
 
 	const MAX_NOTE_TITLE_LEN = 50;
 
@@ -50,17 +53,12 @@
 </script>
 
 <div class="flex w-full flex-col items-start space-y-4 pt-2 lg:flex-row lg:space-x-4">
-	<div class="w-full space-y-2">
-		<h2 class="w-full">{title}</h2>
+	<div class="w-full min-w-0 space-y-2 lg:w-auto lg:flex-1">
+		<h2 class="max-w-sm overflow-hidden text-nowrap overflow-ellipsis">{data.title}</h2>
 		{#if decryptedContent}
-			<Highlight
-				class="rounded-field"
-				language={getLanguageByString(data.language)}
-				code={decryptedContent}
-				let:highlighted
-			>
-				<LineNumbers {highlighted} />
-			</Highlight>
+			<div class="textarea w-full resize-none overflow-x-scroll overflow-y-hidden">
+				<pre class="text-nowrap">{@html highlightedContent.value}</pre>
+			</div>
 		{:else}
 			<div
 				class="fieldset bg-base-200 border-base-300 rounded-box flex flex-col items-center space-y-2 border px-4 py-12"
@@ -82,7 +80,7 @@
 			</div>
 		{/if}
 	</div>
-	<div class="flex w-full flex-col space-y-2">
+	<div class="flex flex-col space-y-2">
 		<h2 class="w-full">Note Info</h2>
 		<fieldset
 			class="fieldset bg-base-200 border-base-300 rounded-box space-y w-full border p-4 sm:w-sm sm:min-w-86"

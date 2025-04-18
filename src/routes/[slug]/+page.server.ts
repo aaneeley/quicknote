@@ -12,7 +12,8 @@ export const load: PageServerLoad = async ({ params }) => {
         encrypted: notes.encrypted,
         language: notes.language,
         salt: notes.salt,
-        iv: notes.iv
+        iv: notes.iv,
+        title: notes.title
     }).from(notes).where(eq(notes.id, noteIndex))
 
     if (result.length > 0) {
@@ -21,17 +22,3 @@ export const load: PageServerLoad = async ({ params }) => {
 
     throw error(404, 'Note not found');
 };
-
-export const actions = {
-    default: async ({ request }) => {
-        const data = await request.formData();
-        const password = data.get("password")
-
-        if (!password || password === "") {
-            return fail(400, { password, password_missing: true })
-        }
-
-        // Do decryption
-
-    }
-} satisfies Actions;

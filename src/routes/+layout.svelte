@@ -11,6 +11,6 @@
 	/>
 </head>
 
-<main class="px-5 md:px-10 lg:px-30">
+<main class="px-5 md:px-10 xl:px-20">
 	{@render children()}
 </main>

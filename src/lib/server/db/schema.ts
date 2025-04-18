@@ -7,4 +7,5 @@ export const notes = pgTable('notes', {
     salt: text('salt'), // base64 encoded salt
     iv: text('iv'), // base64 encoded IV
     language: text('language').notNull().default('plaintext'),
+    title: text('title').notNull().default('New Note')
 });

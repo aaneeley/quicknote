@@ -1,18 +1,13 @@
 <script lang="ts">
+	import { applyAction, enhance } from '$app/forms';
+	import { LockClosed, LockOpen, Warning } from '$lib/icons';
+	import hljs from 'highlight.js';
 	import type { PageProps } from './$types';
 
 	let { form }: PageProps = $props();
-	import { applyAction, enhance } from '$app/forms';
-	import { LockClosed, LockOpen, Warning } from '$lib/icons';
-	import { getLanguageByString } from '$lib/utils';
-	import '$lib/themes/github-dark-dimmed.css';
-
-	import hljs from 'highlight.js';
 
 	let language: string = $state('plaintext');
-
 	let isLoading = $state(false);
-
 	let content = $state('');
 	let title = $state('New Note');
 	let encrypted = $state(false);
@@ -20,7 +15,6 @@
 
 	let highlightedContent = $derived(hljs.highlight(content, { language: language }));
 
-	// let title = $derived(content.split('\n')[0].substring(0, MAX_NOTE_TITLE_LEN) || 'New Note');
 	function autoResize(textarea: HTMLTextAreaElement) {
 		const resize = () => {
 			textarea.style.height = 'auto';

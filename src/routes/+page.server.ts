@@ -20,7 +20,7 @@ export const actions = {
         }
         if (!content || content === "") {
             return fail(400, { content, missing: true })
-        } else if (content.toString().length > 500_000) { // 0.5MB max note size
+        } else if (content.toString().length > 500_000 || (title && title.toString().length > 50)) { // 0.5MB max note size
             return fail(400, { content, invalid: true })
         }
 

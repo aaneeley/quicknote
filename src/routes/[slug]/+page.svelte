@@ -1,34 +1,24 @@
 <script lang="ts">
-	import type { ActionData, PageProps } from './$types';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
+	import { decryptAesGcm } from '$lib/utils';
+	import hljs from 'highlight.js';
+	import type { PageProps } from './$types';
 
-	let { data, form }: PageProps = $props();
+	let { data }: PageProps = $props();
+
+	let password = $state('');
+	let isLoading = $state(false);
+	let copied = $state(false);
+	let error = $state('');
 	let decryptedContent: string = $state('');
 
 	if (!data.encrypted) {
 		decryptedContent = data.content;
 	}
 
-	import { applyAction, enhance } from '$app/forms';
-	import { page } from '$app/state';
-	import { LockClosed, LockOpen, Warning } from '$lib/icons';
-	import { decryptAesGcm, getLanguageByString } from '$lib/utils';
-	import { goto } from '$app/navigation';
-	import 'svelte-highlight/styles/github-dark.css';
-	import hljs from 'highlight.js';
-
-	let password = $state('');
-	let isLoading = $state(false);
-	let copied = $state(false);
-	let error = $state('');
-
 	let highlightedContent = $derived(
 		hljs.highlight(decryptedContent, { language: data.language.toString() })
-	);
-
-	const MAX_NOTE_TITLE_LEN = 50;
-
-	let title = $derived(
-		decryptedContent?.split('\n')[0].substring(0, MAX_NOTE_TITLE_LEN) || 'Encrypted Note'
 	);
 
 	const decrypt = () => {

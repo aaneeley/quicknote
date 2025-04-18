@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
+	import '$lib/themes/github-dark-dimmed.css';
 	import { decryptAesGcm } from '$lib/utils';
 	import hljs from 'highlight.js';
 	import type { PageProps } from './$types';

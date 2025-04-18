@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
 	import { LockClosed, LockOpen, Warning } from '$lib/icons';
+	import '$lib/themes/github-dark-dimmed.css';
 	import hljs from 'highlight.js';
 	import type { PageProps } from './$types';
 

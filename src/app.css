@@ -1,6 +1,9 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
-@plugin "daisyui";
+
+@plugin "daisyui" {
+    themes: all;
+}
 
 h1 {
     font-size: 18pt;

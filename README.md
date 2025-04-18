@@ -1,6 +1,6 @@
 # Quicknote
 
-A cryptographically secure pastebin-like app to demonstrate comptetence across the full stack.
+A cryptographically secure pastebin-like app to demonstrate competence across the full stack.
 
 Go ahead, [try it out](https://qn.aneeley.com/)
 

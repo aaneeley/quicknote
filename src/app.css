@@ -2,7 +2,7 @@
 @plugin '@tailwindcss/typography';
 
 @plugin "daisyui" {
-    themes: all;
+    themes: bumblebee --default, dim --prefersdark, light, dark, emerald, cupcake, forest, dracula, night, sunset, retro, silk, synthwave, nord;
 }
 
 h1 {

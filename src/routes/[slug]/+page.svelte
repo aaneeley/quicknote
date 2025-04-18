@@ -57,8 +57,8 @@
 
 <div class="flex w-full flex-col items-start space-y-4 pt-2 lg:flex-row lg:space-x-4">
 	<div class="w-full min-w-0 space-y-2 lg:w-auto lg:flex-1">
-		<div class="flex w-full flex-col items-start justify-between py-1 sm:flex-row sm:items-center">
-			<h2 class="max-w-sm overflow-hidden text-nowrap overflow-ellipsis">{data.title}</h2>
+		<div class="flex w-full flex-row items-center justify-between py-1">
+			<h2 class="mr-4 max-w-sm overflow-hidden text-nowrap overflow-ellipsis">{data.title}</h2>
 			<label class=" swap swap-rotate pr-2">
 				<input
 					bind:checked={rawMode}

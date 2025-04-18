@@ -57,16 +57,16 @@
 	}}
 >
 	<div class="w-full min-w-0 space-y-2 text-sm lg:w-auto lg:flex-1">
-		<div class="flex w-full flex-col justify-between py-1 sm:flex-row sm:items-center">
+		<div class="flex w-full flex-row items-center justify-between py-1">
 			<input
 				name="title"
-				class="input input-sm w-sm text-lg font-semibold"
+				class="input input-sm mr-4 w-sm text-lg font-semibold"
 				maxlength="50"
 				bind:value={title}
 				hidden={previewMode}
 			/>
 			{#if previewMode}
-				<h2 class="max-w-sm overflow-hidden text-nowrap overflow-ellipsis">{title}</h2>
+				<h2 class="mr-4 max-w-sm overflow-hidden text-nowrap overflow-ellipsis">{title}</h2>
 			{/if}
 			<label class="swap swap-rotate pr-2">
 				<input

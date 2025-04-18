@@ -39,8 +39,8 @@
 <div
 	class="bg-base-300 flex h-14 w-full flex-row items-center justify-between px-5 max-sm:absolute max-sm:bottom-0 md:px-10 xl:px-20"
 >
-	<h1>Text</h1>
-	<div class="dropdown dropdown-end">
+	<h1>Quicknote</h1>
+	<div class="dropdown dropdown-end max-sm:dropdown-top">
 		<div tabindex="-1" role="button" class="btn m-1">
 			Theme
 			<svg

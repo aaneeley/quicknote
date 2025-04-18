@@ -23,7 +23,7 @@
 	class="bg-base-300 flex h-14 w-full flex-row items-center justify-between px-5 max-sm:absolute max-sm:bottom-0 md:px-10 xl:px-20"
 >
 	<h1>Text</h1>
-	<input type="checkbox" class="toggle" data-toggle-theme="silk,dark" data-key="theme" />
+	<input type="checkbox" class="toggle" data-toggle-theme="light,dark" data-key="theme" />
 </div>
 <main class="px-5 md:px-10 xl:px-20">
 	{@render children()}

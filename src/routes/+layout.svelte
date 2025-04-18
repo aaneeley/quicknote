@@ -41,7 +41,7 @@
 	class="bg-base-300 flex h-14 w-full flex-row items-center justify-between px-5 max-sm:absolute max-sm:bottom-0 md:px-10 xl:px-20"
 >
 	<h1 class="ui">Quicknote</h1>
-	<div class="flex flex-row items-center space-x-6">
+	<div class="flex flex-row items-center space-x-4">
 		<button
 			class="btn btn-ghost transition-all hover:opacity-50"
 			onclick={() => window.open('https://github.com/aaneeley/quicknote', '_blank')}

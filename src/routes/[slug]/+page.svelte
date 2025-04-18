@@ -58,7 +58,9 @@
 <div class="flex w-full flex-col items-start space-y-4 pt-2 lg:flex-row lg:space-x-4">
 	<div class="w-full min-w-0 space-y-2 lg:w-auto lg:flex-1">
 		<div class="flex w-full flex-row items-center justify-between py-1">
-			<h2 class="ui mr-4 max-w-sm overflow-hidden text-nowrap overflow-ellipsis">{data.title}</h2>
+			<h2 class="ui mt-1 mr-4 max-w-sm overflow-hidden text-nowrap overflow-ellipsis">
+				{data.title}
+			</h2>
 			<label class=" swap swap-rotate pr-2">
 				<input
 					bind:checked={rawMode}
@@ -79,7 +81,7 @@
 			</div>
 		{:else}
 			<div
-				class="fieldset bg-base-200 border-base-300 rounded-box flex flex-col items-center space-y-2 border px-4 py-12"
+				class="fieldset bg-base-200 border-base-300 rounded-box -mt-1 flex flex-col items-center space-y-2 border px-4 py-12"
 			>
 				<span class="text-sm">This note requires a password to access</span>
 				<input
@@ -98,10 +100,10 @@
 			</div>
 		{/if}
 	</div>
-	<div class="flex w-full flex-col space-y-2 sm:w-auto">
-		<h2 class="ui w-full">Note Info</h2>
+	<div class="flex w-full flex-col sm:w-auto">
+		<h2 class="ui w-full pt-2">Note Info</h2>
 		<fieldset
-			class="fieldset bg-base-200 border-base-300 rounded-box space-y w-full border p-4 sm:w-sm sm:min-w-86"
+			class="fieldset bg-base-200 border-base-300 rounded-box space-y -mt-1 w-full border p-4 sm:w-sm sm:min-w-86"
 		>
 			<legend class="fieldset-legend">Share</legend>
 
@@ -134,7 +136,7 @@
 					: 'Anyone can access this note through the link.'}
 			</p>
 		</fieldset>
-		<button class="btn btn-primary btn-outline" onclick={() => goto('/')}
+		<button class="btn btn-primary btn-outline mt-4" onclick={() => goto('/')}
 			><b>+</b>&nbsp;New Note</button
 		>
 	</div>

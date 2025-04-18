@@ -67,7 +67,7 @@
 				hidden={previewMode}
 			/>
 			{#if previewMode}
-				<h2 class="ui mr-4 max-w-sm overflow-hidden text-nowrap overflow-ellipsis">{title}</h2>
+				<h2 class="ui mt-1 mr-4 max-w-sm overflow-hidden text-nowrap overflow-ellipsis">{title}</h2>
 			{/if}
 			<label class="swap swap-rotate pr-2">
 				<input
@@ -96,10 +96,10 @@
 			</div>
 		{/if}
 	</div>
-	<div class="flex flex-col space-y-2">
-		<h2 class="ui w-full">Note Settings</h2>
+	<div class="flex flex-col">
+		<h2 class="ui w-full pt-2">Note Settings</h2>
 		<fieldset
-			class="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4 sm:w-sm sm:min-w-86"
+			class="fieldset bg-base-200 border-base-300 rounded-box -mt-1 w-full border p-4 sm:w-sm sm:min-w-86"
 		>
 			<legend class="fieldset-legend">Syntax Highlighting</legend>
 			<select class="select" name="language" bind:value={language}>
@@ -162,7 +162,7 @@
 		{:else if form?.invalid}
 			<span class="text-error text-sm">Something is wrong with your note... Please try again.</span>
 		{/if}
-		<button class="btn btn-outline btn-success" onclick={() => (isLoading = true)}
+		<button class="btn btn-outline btn-success mt-4" onclick={() => (isLoading = true)}
 			>{isLoading ? 'loading...' : 'Save Note'}</button
 		>
 	</div>

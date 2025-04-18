@@ -7,6 +7,7 @@
 	import DOMPurify from 'isomorphic-dompurify';
 	import type { PageProps } from './$types';
 	import { marked } from 'marked';
+	import { Code, Page } from '$lib/icons';
 
 	let { data }: PageProps = $props();
 
@@ -15,6 +16,7 @@
 	let copied = $state(false);
 	let error = $state('');
 	let decryptedContent: string = $state('');
+	let rawMode: boolean = $state(false);
 
 	if (!data.encrypted) decryptedContent = data.content;
 
@@ -50,10 +52,23 @@
 
 <div class="flex w-full flex-col items-start space-y-4 pt-2 lg:flex-row lg:space-x-4">
 	<div class="w-full min-w-0 space-y-2 lg:w-auto lg:flex-1">
-		<h2 class="max-w-sm overflow-hidden text-nowrap overflow-ellipsis">{data.title}</h2>
+		<div class="flex w-full flex-col justify-between py-1 sm:flex-row sm:items-center">
+			<h2 class="max-w-sm overflow-hidden text-nowrap overflow-ellipsis">{data.title}</h2>
+			<label class="swap swap-rotate pr-2">
+				<input
+					bind:checked={rawMode}
+					type="checkbox"
+					class="tooltip tooltip-left"
+					data-tip={rawMode ? 'View Formatted' : 'View Raw'}
+				/>
+				<Code />
+				<Page />
+			</label>
+		</div>
 		{#if decryptedContent}
 			<div class="bg-base-300 textarea w-full resize-none overflow-x-scroll overflow-y-hidden">
-				<pre class="text-nowrap">{@html purifiedContent}</pre>
+				<pre
+					class="text-nowrap">{#if rawMode}{decryptedContent}{:else}{@html purifiedContent}{/if}</pre>
 			</div>
 		{:else}
 			<div

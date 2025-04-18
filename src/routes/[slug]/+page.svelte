@@ -14,9 +14,7 @@
 	let error = $state('');
 	let decryptedContent: string = $state('');
 
-	if (!data.encrypted) {
-		decryptedContent = data.content;
-	}
+	if (!data.encrypted) decryptedContent = data.content;
 
 	let highlightedContent = $derived(
 		hljs.highlight(decryptedContent, { language: data.language.toString() })

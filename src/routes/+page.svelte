@@ -4,6 +4,8 @@
 	import '$lib/themes/github-dark-dimmed.css';
 	import hljs from 'highlight.js';
 	import type { PageProps } from './$types';
+	import Edit from '$lib/icons/Edit.svelte';
+	import Eye from '$lib/icons/Eye.svelte';
 
 	let { form }: PageProps = $props();
 
@@ -57,9 +59,15 @@
 			{#if previewMode}
 				<h2 class="max-w-sm overflow-hidden text-nowrap overflow-ellipsis">{title}</h2>
 			{/if}
-			<label class="fieldset-label text-left text-sm text-nowrap">
-				<input type="checkbox" bind:checked={previewMode} class="toggle toggle-sm" />
-				Preview Note
+			<label class="swap swap-rotate pr-2">
+				<input
+					bind:checked={previewMode}
+					type="checkbox"
+					class="tooltip tooltip-left"
+					data-tip={previewMode ? 'Edit' : 'Preview'}
+				/>
+				<Edit />
+				<Eye />
 			</label>
 		</div>
 		<textarea
@@ -95,8 +103,7 @@
 			</select>
 
 			<p class="fieldset-label">
-				Changes how viewers see your note. Toggle "Preview Note" to see how viewers will see your
-				note.
+				Changes how viewers see your note. Click the eye to preview your note.
 			</p>
 		</fieldset>
 		<fieldset
